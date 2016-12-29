@@ -68,7 +68,7 @@ tBodyAcc.mean.Y      -0.01831773        -0.01268957  …
 ```
 
 | Column / Variable name  | Column #  | Data Type | Description |
-|-------------------------|:--------:|:---------:|------------:|| A.<Activity>.mean       | 1 threw 6 | Numeric   | Where <Activity> is one of the 6 activities , WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING , STANDING ,LAYING
+|-------------------------|:--------:|:---------:|------------:|| A.\<Activity\>.mean       | 1 threw 6 | Numeric   | Where <Activity> is one of the 6 activities , WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING , STANDING ,LAYING
 | S.<Subject>.mean        | 7 threw 37 |  Numeric | Where <Subject> is one of the 30  numbers representing a subject
 
 
