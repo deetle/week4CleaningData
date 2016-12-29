@@ -17,6 +17,8 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 4. Appropriately labels the data set with descriptive variable names. 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+
+
 ##Steps taken by run_analasys.r
 1. Read column name data fie ( features.txt )
 2. Read Activity table file  ( activity_labels.txt )
