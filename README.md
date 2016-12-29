@@ -61,24 +61,14 @@ That means we will have 6 columns to represent the activity mean and 30 Colum to
 The table snippet below 
 
 ```
-
-
-       A.LAYING.mean A.SITTING.mean    …
-tBodyAcc.mean.X       0.26864864     0.27305961  …
-tBodyAcc.mean.Y      -0.01831773    -0.01268957  …
+                   A.LAYING.mean     A.SITTING.mean  …
+tBodyAcc.mean.X       0.26864864         0.27305961  …
+tBodyAcc.mean.Y      -0.01831773        -0.01268957  …
 …………………………………………………………………………………………………………………………….
 ```
 
-
-
-Variable Name Column #Data type Description A.<Activity>.mean1 threw 6 Numeric Where <Activity> is one of the 6 activities 
-WALKING
-WALKING_UPSTAIRS
-WALKING_DOWNSTAIRS	
-SITTING
-STANDING
-LAYING
-S.<Subject>.mean7 threw 37NumericWhere <Subject> is one of the 30  numbers representing a subject
+| Column / Variable name  | Column #  | Data Type | Description || A.<Activity>.mean       | 1 threw 6 | Numeric   | Where <Activity> is one of the 6 activities , WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING , STANDING ,LAYING
+| S.<Subject>.mean        | 7 threw 37 |  Numeric | Where <Subject> is one of the 30  numbers representing a subject
 
 
 
