@@ -21,6 +21,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 1. Read column name data fie ( features.txt )
 2. Read Activity table file  ( activity_labels.txt ) 
 3. Read both the test and Train Data 
+
 ..1. Read subject column data and clean up its names 
 ..2. For example remove ‘(‘ and ‘)’ characters
 ..3. Read activity column data 
