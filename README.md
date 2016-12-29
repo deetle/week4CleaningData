@@ -1,7 +1,7 @@
 
 
 
-#Study Design 
+##Study Design 
 
 ##The experiment 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
@@ -22,7 +22,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 2. Read Activity table file  ( activity_labels.txt ) 
 3. Read both the test and Train Data 
 ..1. Read subject column data and clean up its names 
-..2. For example remove ‘(‘ and ‘)’ characters 
+..2. For example remove ‘(‘ and ‘)’ characters
 ..3. Read activity column data 
 ..4. Read data for all the 561 columns 
 ..5. This will also assign each of the columns it name from the previously read column name data file 
