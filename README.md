@@ -23,13 +23,13 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 3. Read both the test and Train Data 
 
 	1. Read subject column data and clean up its names 
-	2. For example remove ‘(‘ and ‘)’ characters
+		2. For example remove ‘(‘ and ‘)’ characters
 	3. Read activity column data 
-..4. Read data for all the 561 columns 
-..5. This will also assign each of the columns it name from the previously read column name data file 
-..6. Remove all NON mean and STD columns 
-..7. Leaves you 79 columns 
-e. Merge Subject Column &  Activity Column &  Data Columns 
+	4. Read data for all the 561 columns 
+	5. This will also assign each of the columns it name from the previously read column name data file 
+	6. Remove all NON mean and STD columns 
+	7. Leaves you 79 columns 
+	e. Merge Subject Column &  Activity Column &  Data Columns 
 i. Giving you a total of 81 columns 
 f. Replace Activity numbers with descriptive Activity names 
 i. For example, a 1 in the active column becomes WALKING
