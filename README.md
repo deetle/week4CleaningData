@@ -32,7 +32,8 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 		Giving you a total of 81 columns 
 	8. Replace Activity numbers with descriptive Activity names  
        For example, a 1 in the active column becomes WALKING
-	8. Write the resulting table to file 
+4. Merge the test data and train data tables 
+8. Write the resulting table to file 
 
 
 ##Code Book 
@@ -40,7 +41,10 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 Data set # 1 returned in data.txt from the run_analysis. r script. 
 
-Column / Variable name Column #Data TypeDescription Activity1Factor Expresses on of the 6 activities 
+| Column / Variable name  | Column # | Data Type | Description |
+|-------------------------|:--------:|:---------:|------------:|
+| Activity                | 1 		 | Factor    | Expresses on of the 6 activities  |
+Description Activity1Factor Expresses on of the 6 activities 
 WALKING
 WALKING_UPSTAIRS
 WALKING_DOWNSTAIRS	
