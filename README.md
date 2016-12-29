@@ -44,26 +44,33 @@ Data set # 1 returned in data.txt from the run_analysis. r script.
 | Column / Variable name  | Column # | Data Type | Description |
 |-------------------------|:--------:|:---------:|------------:|
 | Activity                | 1 		 | Factor    | Expresses on of the 6 activities  |
-Description Activity1Factor Expresses on of the 6 activities 
-WALKING
-WALKING_UPSTAIRS
-WALKING_DOWNSTAIRS	
-SITTING
-STANDING
-LAYING
+|                         |          |           | WALKING
+|                         |          |           | WALKING_UPSTAIRS
+|                         |          |           | WALKING_DOWNSTAIRS
+|                         |          |           | SITTING
+|                         |          |           | STANDING 
+|                         |          |           | LAYING
+|                         |          |           |
+|-------------------------|:--------:|:---------:|------------:|
+| Subject                 | 2		 | Numeric   | A number identifying one of the 30 subjects 1 threw 30  |
+|-------------------------|:--------:|:---------:|------------:|
+| tGravity*               |3 to 81   |           |  
+| tBody*                  |          |           |79 variables from the original data set that represent the mean and SDT .   
+|                         |          |           |
+|                         |          |           |The variable names have been cleaned up to remove ‘-‘ , ‘()” from them. 
+|                         |          |           |
+|                         |          |           |For example, the variable from the original data set 
+|                         |          |           |tBodyAcc-mean()-X
+|                         |          |           |
+|                         |          |           |was renamed 
+|                         |          |           |
+|                         |          |           |tBodyAcc.mean.X
+|                         |          |           |
+|                         |          |           |
+|                         |          |           |
+|-------------------------|:--------:|:---------:|------------:|
+ 
 
-Subject2Numeric A number identifying one of the 30 subjects 1 threw 30tGravity*
-tBody*
-3 to 8179 variables from the original data set that represent the mean and SDT .   
-
-The variable names have been cleaned up to remove ‘-‘ , ‘()” from them. 
-
-For example, the variable from the original data set 
-tBodyAcc-mean()-X
-
-was renamed 
-
-tBodyAcc.mean.X
 
 
 
