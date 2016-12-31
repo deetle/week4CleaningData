@@ -1,8 +1,13 @@
 
+#include("data.table")
 
+################################################################
 #
 # read common data 
 #
+################################################################
+
+
 
 # read column names from "features.txt".  It containes two columns.
 # Names is the column we will be intrested in.
@@ -21,17 +26,22 @@ ColumnNames = read.table("features.txt",
 print( dim(ColumnNames ) )
 print( class(ColumnNames$Numbers) )  # should be be numeric 
 print( class(ColumnNames$Names) )    # should be character 
-print( head( ColumnNames ) )
+print( head( ColumnNames ),20 )
+
 
 # filter out unwanted characters in column names
 
-columnNames = gsub( "-" , ".", ColumnNames$Names)
-columnNames = gsub( "()" , "", columnNames ,fixed=TRUE)
+columnNames = gsub( "[[:punct:]]" , "", ColumnNames$Names)
+#columnNames = gsub( "()" , "", columnNames ,fixed=TRUE)
+columnNames = gsub( "mean" , "Mean", columnNames ,fixed=TRUE)
+columnNames = gsub( "std" , "Std", columnNames ,fixed=TRUE)
+#columnNames = gsub( "[.]" , "", columnNames ,fixed=TRUE)
+columnNames = gsub( "angle" , "Angle", columnNames ,fixed=TRUE)
+columnNames = gsub( "gravity" , "Gravity", columnNames ,fixed=TRUE)
+#columnNames = gsub( "angle.tBodyAccMean.gravity." , "AngleTbodyAccMeanGravity", columnNames ,fixed=TRUE)
 
-print(columnNames)
 
-
-
+print( head( ColumnNames ),20 )
 
 
 
@@ -47,9 +57,10 @@ print(columnNames)
 
 
 print("+++++++++++++++++++ get activity table ")
+
 ActivityTable = read.table("activity_labels.txt",
-		              col.names=c("Number","Activity"),         # Define first and second column names
-				  colClasses=c("numeric","character"))      # Define first and second column data types.
+		                   col.names=c("Number","Activity"),         # Define first and second column names
+				           colClasses=c("numeric","character"))      # Define first and second column data types.
 print( dim(ActivityTable ) )
 print( class(ActivityTable$Number) )      # should be be numeric 
 print( class(ActivityTable$Activity) )    # should be character 
@@ -60,118 +71,121 @@ for( i in  1:nrow(ActivityTable ))
 	print(ActivityTable [i,])
 }
 
-
+################################################################
 #
 #  Define readData function
 # 
+################################################################
 
 ReadData <- function(subjectDataFile,
-			   actvityDataFile,
+					 actvityDataFile,
                      dataFile) {
 
 
-columnPrintFilter = c(1,2,3,4,5)
+		columnPrintFilter = c(1,2,3,4,5)  # When printing tables for debug purposes , only print these columns
 
 
-# read subject data 
-print(paste("+++++++++++++++++++ get subject data: ",subjectDataFile))
-TestSubjectData = read.table(subjectDataFile,col.names="Subject")
-print( dim(TestData) )
-print( head(TestSubjectData ,3) )
-
-
-
-# read activity data 
-print(paste("+++++++++++++++++++ get activity data: ",actvityDataFile))
-TestActivityData = read.table(actvityDataFile,col.names="Activity")
-print( dim(TestActivityData ) )
-print( head(TestActivityData,3) )
+		# read subject data 
+		print(paste("+++++++++++++++++++ get subject data: ",subjectDataFile))
+		TestSubjectData = read.table(subjectDataFile,col.names="Subject")
+		print( dim(TestSubjectData) )
+		print( head(TestSubjectData ,3) )
 
 
 
-# read data 
-print(paste("+++++++++++++++++++ get data: ",dataFile))
-TestData = read.table(dataFile,
-			    colClasses=c("double"),
-                      col.names=columnNames,
-                      check.names=FALSE)     # without this column names are striped of "-()" and replaced with "."
-print( dim(TestData) )
-print( head( TestData[, columnPrintFilter ],1 ) ) # print out the first few rows and columns
-print( class( TestData[1,3] ))
+		# read activity data 
+		print(paste("+++++++++++++++++++ get activity data: ",actvityDataFile))
+		TestActivityData = read.table(actvityDataFile,col.names="Activity")
+		print( dim(TestActivityData ) )
+		print( head(TestActivityData,3) )
 
 
 
-# filter out mean and std colums 
-
-print("+++++++++++++++++++ Filter out mean columns")
-
-TestDataMeanDataColumns = grep("mean",columnNames,fixed=TRUE)
-print( length(TestDataMeanDataColumns) )
-print( names(TestData[ ,TestDataMeanDataColumns]) )
-
-
-print(names(TestData[ ,TestDataMeanDataColumns])[1])
-print(ColumnNames$Names[1])
-print("+++++++++++++++++++ Filter out std columns")
-TestDataSdtDataColumns = grep("std",columnNames,fixed=TRUE)
-print( length(TestDataSdtDataColumns ) )
-print( names(TestData[ ,TestDataSdtDataColumns ]) )
-
-
-print("+++++++++++++++++++ Filter mean and STD data tables")
-
-FilteredMeanTestData = TestData[ ,TestDataMeanDataColumns]
-print( dim( FilteredMeanTestData ) )
-
-FilteredStdTestData = TestData[ ,TestDataSdtDataColumns ]
-print( dim( FilteredStdTestData ) )
+		# read data 
+		print(paste("+++++++++++++++++++ get data: ",dataFile))
+		Data = read.table(dataFile,
+						      colClasses=c("double"),
+							  col.names=columnNames)     
+							  
+		print( dim(Data) )
+		print( head( Data[, columnPrintFilter ],1 ) ) # print out the first few rows and columns
+		print( class( Data[1,3] ))
 
 
 
-# merge tables
+		# filter out mean and std colums 
+
+		print("+++++++++++++++++++ Filter out mean columns")
+
+		TestDataMeanDataColumns = grep("Mean",columnNames,fixed=TRUE)
+		print( length(TestDataMeanDataColumns) )
+		print( names(Data[ ,TestDataMeanDataColumns]) )
 
 
-print("+++++++++++++++++++ Merge mean and STD data tables")
+		print(names(Data[ ,TestDataMeanDataColumns])[1])
+		print(ColumnNames$Names[1])
+		print("+++++++++++++++++++ Filter out std columns")
+		TestDataSdtDataColumns = grep("Std",columnNames,fixed=TRUE)
+		print( length(TestDataSdtDataColumns ) )
+		print( names(Data[ ,TestDataSdtDataColumns ]) )
 
 
-TestData  = cbind(FilteredMeanTestData ,FilteredStdTestData)
-print( dim(TestData) )
+		print("+++++++++++++++++++ Filter mean and STD data tables")
 
+		FilteredMeanTestData = Data[ ,TestDataMeanDataColumns]
+		print( dim( FilteredMeanTestData ) )
 
-print("+++++++++++++++++++ Merge Subject and Data tables")
-
-
-TestData  = cbind(TestSubjectData ,TestData  )
-print( dim(TestData) )
-
-print("+++++++++++++++++++ Merge Activity and Data tables")
-
-TestData  = cbind(TestActivityData ,TestData  )
-print( dim(TestData) )
-print( names(TestData  ))
-print( head( TestData[, columnPrintFilter ],5 ) ) # print out the first few rows and columns
+		FilteredStdTestData = Data[ ,TestDataSdtDataColumns ]
+		print( dim( FilteredStdTestData ) )
 
 
 
-# replace activity Number with their Activity names
-print("+++++++++++++++++++ Replace activity Number with their Activity names")
-for( i in  1:nrow(ActivityTable ))
-{
-      TestData[ TestData$Activity == ActivityTable[i,"Number"],"Activity"]  = trimws(ActivityTable[i,"Activity"])
-}
-print( class( TestData$Activity) )
-
-# convert activity to a factor column
-print("+++++++++++++++++++ convert activity to a factor column")
-
-TestData$Activity = as.factor(TestData$Activity)
-
-print( class( TestData$Activity) )
-
-print( head( TestData[, columnPrintFilter ],5 ) ) # print out the first few rows and columns
+		# merge tables
 
 
-TestData
+		print("+++++++++++++++++++ Merge mean and STD data tables")
+
+
+		Data  = cbind(FilteredMeanTestData ,FilteredStdTestData)
+		print( dim(Data) )
+
+
+		print("+++++++++++++++++++ Merge Subject and Data tables")
+
+
+		Data  = cbind(TestSubjectData ,Data  )
+		print( dim(Data) )
+
+		print("+++++++++++++++++++ Merge Activity and Data tables")
+
+		Data  = cbind(TestActivityData ,Data  )
+		print( dim(Data) )
+		print( names(Data  ))
+		print( head( Data,5 ) ) # print out the first few rows and columns
+
+
+
+		# replace activity Number with their Activity names
+		print("+++++++++++++++++++ Replace activity Number with their Activity names")
+		for( i in  1:nrow(ActivityTable ))
+		{
+			  Data[ Data$Activity == ActivityTable[i,"Number"],"Activity"]  = trimws(ActivityTable[i,"Activity"])
+		}
+		print( class( Data$Activity) )
+
+		# convert activity to a factor column
+		print("+++++++++++++++++++ convert activity to a factor column")
+
+		Data$Activity = as.factor(Data$Activity)
+
+		print( class( Data$Activity) )
+		
+		print(dim(Data))
+
+		print( head( Data[, columnPrintFilter ],5 ) ) # print out the first few rows and columns
+
+
+		Data
 
 }
 
@@ -182,9 +196,9 @@ TestData
 
 print("+++++++++++++++++++ Read Test Data")
 TestData = ReadData(
-			"test\\subject_test.txt",   # subject
-                  "test\\y_test.txt",         # activity 
-                  "test\\x_test.txt")         # data
+					"test\\subject_test.txt",   # subject
+					"test\\y_test.txt",         # activity 
+					"test\\x_test.txt")         # data
 
 #
 # read train data 
@@ -196,10 +210,14 @@ TrainData = ReadData(
 			"train\\subject_train.txt",  # subject
                   "train\\y_train.txt",        # activity 
                   "train\\x_train.txt")        # data
+				  
+				  
+#
+# Merge Test and Train Data 
+# 
 
 print("+++++++++++++++++++ Merge Test & Train Data")
-
-print( dim(TestData))
+print( dim(TrainData))
 print( dim(TrainData))
 
 
@@ -208,7 +226,9 @@ print( dim(Data) )
 
 print("+++++++++++++++++++ Write tidy data set to file as data.txt")
 
+#
 # Write tidy data set to file as data.txt
+#
 
 write.table(Data,file = "data.txt",row.name=FALSE , col.names=TRUE)
 
@@ -230,33 +250,36 @@ print("+++++++++++++++++++ Create second tidy data set")
 
 print("+++++++++++++++++++ Split data on Activity")
 
-
+#
+# Split data on activity 
+#
 
 DataGroupByActivity = split(Data  ,Data$Activity)
 print( length(DataGroupByActivity))
 print( names(DataGroupByActivity))
 
-
+#
 # create empty data frame 
+#
 
 activityMeanDF = data.frame(Temp=c(1:(length(names(Data))-2)))
 print( dim(activityMeanDF ) )
 
-
+#
 # loop threw the activitys of the split data
+#
+
 for( a in  names(DataGroupByActivity ))
 {
 	print(a)
 
-
-      # Get the the data set for the current activity 
+    # Get the the data set for the current activity 
 
 	ad = DataGroupByActivity [[a]]  
 	print(dim(ad))
 	print(class(ad))
 	#print(str( ad ))
 	print( ad[4,5])
-
 
 	# calulate the means for the columns
 
@@ -274,10 +297,8 @@ for( a in  names(DataGroupByActivity ))
 
 	# add the column means to the data frame 
 
-	activityMeanDF = cbind(dFrame ,Row)
+	activityMeanDF = cbind(activityMeanDF,Row)
 	
-
-
 }
 
 #print(activityMeanDF )
@@ -287,7 +308,9 @@ for( a in  names(DataGroupByActivity ))
 
 activityMeanDF$Temp = NULL
 
-
+#
+# Split data on subjects 
+#
 
 print("+++++++++++++++++++ Split data on Subjects")
 
@@ -295,13 +318,16 @@ DataGroupBySubject = split(Data  ,Data$Subject)
 print( length(DataGroupBySubject ))
 print( names(DataGroupBySubject ))
 
-
+#
 # create empty data frame 
+#
 
 subjectMeanDF = data.frame(Temp=c(1:(length(names(Data))-2)))
 print( dim(subjectMeanDF ) )
 
+#
 # loop threw the subjects of the split data
+#
 
 for( s in  names(DataGroupBySubject ))
 {
